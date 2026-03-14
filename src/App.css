@@ -96,3 +96,274 @@
   font-size: 0.875rem;
   color: #a89f95;
 }
+
+/* Header with add button */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-btn {
+  background: #e07b4c;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #c96a3f;
+}
+
+/* Recipe Form */
+.recipe-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+.recipe-form h2 {
+  margin: 0 0 1.5rem 0;
+  color: #2d2a26;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #2d2a26;
+  font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e07b4c;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background: #e07b4c;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #c96a3f;
+}
+
+.btn-secondary {
+  background: #f5f5f5;
+  color: #6b635a;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #eee;
+}
+
+/* Recipes container */
+.recipes-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+.recipes-container h2 {
+  color: #2d2a26;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Recipe List */
+.recipe-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.no-recipes {
+  text-align: center;
+  color: #a89f95;
+  padding: 2rem;
+}
+
+/* Recipe Card */
+.recipe-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: left;
+}
+
+.recipe-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.recipe-card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #2d2a26;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+  padding: 0;
+  line-height: 1;
+}
+
+.favorite-btn.active {
+  color: #e07b4c;
+}
+
+.favorite-btn:hover {
+  color: #e07b4c;
+}
+
+.recipe-card-ingredients,
+.recipe-card-instructions {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #6b635a;
+}
+
+.recipe-card-ingredients strong,
+.recipe-card-instructions strong {
+  color: #2d2a26;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.recipe-card-ingredients p,
+.recipe-card-instructions p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.recipe-card-instructions p {
+  white-space: pre-wrap;
+}
+
+.recipe-card-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+}
+
+.btn-edit {
+  background: #f5f5f5;
+  color: #6b635a;
+}
+
+.btn-edit:hover {
+  background: #eee;
+}
+
+.btn-delete {
+  background: #fee;
+  color: #c44;
+}
+
+.btn-delete:hover {
+  background: #fdd;
+}
+
+/* Search Bar */
+.search-bar {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  padding-right: 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: #e07b4c;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.clear-btn:hover {
+  color: #666;
+}
