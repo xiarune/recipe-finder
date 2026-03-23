@@ -1,17 +1,12 @@
-function SearchBar({ value, onChange }) {
+function SearchBar({ searchTerm, onSearchChange }) {
   return (
     <div className="search-bar">
       <input
         type="text"
         placeholder="Search by title or ingredient..."
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => onSearchChange(e.target.value)}
       />
-      {value && (
-        <button className="clear-btn" onClick={() => onChange('')}>
-          ×
-        </button>
-      )}
     </div>
   );
 }

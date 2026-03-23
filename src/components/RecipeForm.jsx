@@ -1,41 +1,70 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function RecipeForm({ onSave, onCancel, initialData }) {
-  const [title, setTitle] = useState(initialData?.title || '');
-  const [ingredients, setIngredients] = useState(
-    initialData?.ingredients?.join(', ') || ''
-  );
-  const [instructions, setInstructions] = useState(initialData?.instructions || '');
+function RecipeForm({ onSubmit, onCancel, initialData }) {
+  const [title, setTitle] = useState('');
+  const [ingredients, setIngredients] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [cookTime, setCookTime] = useState('');
+  const [error, setError] = useState('');
+
+  const isEditing = Boolean(initialData);
+
+  // Populate form when editing
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title || '');
+      setIngredients(initialData.ingredients?.join(', ') || '');
+      setInstructions(initialData.instructions || '');
+      setCookTime(initialData.cookTime || '');
+    }
+  }, [initialData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Basic validation
     if (!title.trim()) {
-      alert('Please enter a recipe title');
+      setError('Please enter a recipe title');
       return;
     }
 
+    if (!instructions.trim()) {
+      setError('Please enter cooking instructions');
+      return;
+    }
+
+    setError('');
+
+    // Create recipe object
     const recipe = {
-      id: initialData?.id || `recipe_${Date.now()}`,
       title: title.trim(),
       ingredients: ingredients
         .split(',')
-        .map((i) => i.trim())
-        .filter((i) => i),
+        .map((item) => item.trim())
+        .filter((item) => item),
       instructions: instructions.trim(),
-      isFavorite: initialData?.isFavorite || false,
-      createdAt: initialData?.createdAt || Date.now(),
+      cookTime: cookTime.trim(),
     };
 
-    onSave(recipe);
+    onSubmit(recipe);
+
+    // Clear form if adding (not editing)
+    if (!isEditing) {
+      setTitle('');
+      setIngredients('');
+      setInstructions('');
+      setCookTime('');
+    }
   };
 
   return (
     <form className="recipe-form" onSubmit={handleSubmit}>
-      <h2>{initialData ? 'Edit Recipe' : 'Add New Recipe'}</h2>
+      <h2>{isEditing ? 'Edit Recipe' : 'Add New Recipe'}</h2>
+
+      {error && <p className="form-error">{error}</p>}
 
       <div className="form-group">
-        <label htmlFor="title">Recipe Title</label>
+        <label htmlFor="title">Recipe Title *</label>
         <input
           id="title"
           type="text"
@@ -57,7 +86,7 @@ function RecipeForm({ onSave, onCancel, initialData }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="instructions">Instructions</label>
+        <label htmlFor="instructions">Instructions *</label>
         <textarea
           id="instructions"
           value={instructions}
@@ -67,13 +96,26 @@ function RecipeForm({ onSave, onCancel, initialData }) {
         />
       </div>
 
+      <div className="form-group">
+        <label htmlFor="cookTime">Cook Time</label>
+        <input
+          id="cookTime"
+          type="text"
+          value={cookTime}
+          onChange={(e) => setCookTime(e.target.value)}
+          placeholder="e.g., 30 mins"
+        />
+      </div>
+
       <div className="form-buttons">
         <button type="submit" className="btn-primary">
-          {initialData ? 'Save Changes' : 'Add Recipe'}
+          {isEditing ? 'Save Changes' : 'Add Recipe'}
         </button>
-        <button type="button" className="btn-secondary" onClick={onCancel}>
-          Cancel
-        </button>
+        {onCancel && (
+          <button type="button" className="btn-secondary" onClick={onCancel}>
+            Cancel
+          </button>
+        )}
       </div>
     </form>
   );

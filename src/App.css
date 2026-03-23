@@ -13,6 +13,14 @@
   font-size: 1.125rem;
   font-weight: 600;
   color: #e07b4c;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .main {
@@ -61,6 +69,23 @@
 .cta-button:hover {
   background: #c96a3f;
   transform: translateY(-1px);
+}
+
+.cta-button.secondary {
+  background: white;
+  color: #e07b4c;
+  border: 2px solid #e07b4c;
+}
+
+.cta-button.secondary:hover {
+  background: #fff8f5;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .features {
@@ -133,6 +158,15 @@
   margin: 0 0 1.5rem 0;
   color: #2d2a26;
   font-size: 1.5rem;
+}
+
+.form-error {
+  background: #fee;
+  color: #c44;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
 .form-group {
@@ -248,6 +282,19 @@
   margin: 0;
   font-size: 1.25rem;
   color: #2d2a26;
+}
+
+.recipe-card-cooktime {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: #6b635a;
+  margin-bottom: 1rem;
+}
+
+.cooktime-icon {
+  font-size: 1rem;
 }
 
 .favorite-btn {
@@ -366,4 +413,288 @@
 
 .clear-btn:hover {
   color: #666;
+}
+
+/* Clickable Feature Buttons */
+.feature {
+  background: white;
+  border: 1px solid #eee;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.feature:hover {
+  border-color: #e07b4c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(224, 123, 76, 0.15);
+}
+
+/* View Tabs */
+.view-header {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.view-tab {
+  background: #f5f5f5;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #6b635a;
+  transition: all 0.2s ease;
+}
+
+.view-tab:hover {
+  background: #eee;
+}
+
+.view-tab.active {
+  background: #e07b4c;
+  color: white;
+}
+
+/* Meal Planner */
+.meal-planner {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.meal-planner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.meal-planner-header h2 {
+  margin: 0;
+  color: #2d2a26;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .calendar-week {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-week {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calendar-day {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-day.today {
+  border: 2px solid #e07b4c;
+}
+
+.calendar-day-header {
+  text-align: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.day-name {
+  display: block;
+  font-weight: 600;
+  color: #2d2a26;
+  font-size: 0.9rem;
+}
+
+.day-date {
+  display: block;
+  font-size: 0.8rem;
+  color: #a89f95;
+}
+
+.calendar-day-events {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.calendar-event {
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendar-event.recipe {
+  background: #fff3ed;
+  border-left: 3px solid #e07b4c;
+}
+
+.calendar-event.event {
+  background: #edf7ff;
+  border-left: 3px solid #4a90d9;
+}
+
+.calendar-event span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-event {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.remove-event:hover {
+  color: #c44;
+}
+
+.add-to-day {
+  background: #f5f5f5;
+  border: 1px dashed #ccc;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-to-day:hover {
+  background: #eee;
+  border-color: #e07b4c;
+  color: #e07b4c;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.modal h3 {
+  margin: 0 0 1.5rem 0;
+  color: #2d2a26;
+}
+
+.modal-section {
+  margin-bottom: 1.5rem;
+}
+
+.modal-section label {
+  display: block;
+  font-weight: 500;
+  color: #2d2a26;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.custom-event-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.custom-event-input input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.custom-event-input input:focus {
+  outline: none;
+  border-color: #e07b4c;
+}
+
+.custom-event-input .btn-primary {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.no-favorites {
+  color: #a89f95;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.recipe-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.recipe-pick-btn {
+  background: #fff3ed;
+  border: 1px solid #e07b4c;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #2d2a26;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.recipe-pick-btn:hover {
+  background: #e07b4c;
+  color: white;
+}
+
+.modal-close {
+  width: 100%;
+  margin-top: 0.5rem;
 }
