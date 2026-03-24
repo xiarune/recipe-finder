@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 function MealPlanner({ favoriteRecipes, onClose }) {
   const [mealPlan, setMealPlan] = useState({});
   const [selectedDay, setSelectedDay] = useState(null);
-  const [showRecipePicker, setShowRecipePicker] = useState(false);
   const [customEvent, setCustomEvent] = useState('');
+  const [eventTime, setEventTime] = useState('');
+  const [eventLocation, setEventLocation] = useState('');
 
   // Get current week's dates
   const getWeekDates = () => {
@@ -49,6 +50,24 @@ function MealPlanner({ favoriteRecipes, onClose }) {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
+  // Format time for display (convert 24h to 12h)
+  const formatTime = (time) => {
+    if (!time) return '';
+    const [hours, minutes] = time.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  };
+
+  // Reset form fields
+  const resetForm = () => {
+    setCustomEvent('');
+    setEventTime('');
+    setEventLocation('');
+    setSelectedDay(null);
+  };
+
   // Add recipe to day
   const addRecipeToDay = (recipe) => {
     if (!selectedDay) return;
@@ -56,11 +75,18 @@ function MealPlanner({ favoriteRecipes, onClose }) {
     const dayEvents = mealPlan[dateKey] || [];
     const newPlan = {
       ...mealPlan,
-      [dateKey]: [...dayEvents, { type: 'recipe', title: recipe.title, id: recipe.id }],
+      [dateKey]: [
+        ...dayEvents,
+        {
+          type: 'recipe',
+          title: recipe.title,
+          id: recipe.id,
+          time: eventTime || null,
+        },
+      ],
     };
     saveMealPlan(newPlan);
-    setShowRecipePicker(false);
-    setSelectedDay(null);
+    resetForm();
   };
 
   // Add custom event to day
@@ -70,11 +96,18 @@ function MealPlanner({ favoriteRecipes, onClose }) {
     const dayEvents = mealPlan[dateKey] || [];
     const newPlan = {
       ...mealPlan,
-      [dateKey]: [...dayEvents, { type: 'event', title: customEvent.trim() }],
+      [dateKey]: [
+        ...dayEvents,
+        {
+          type: 'event',
+          title: customEvent.trim(),
+          time: eventTime || null,
+          location: eventLocation.trim() || null,
+        },
+      ],
     };
     saveMealPlan(newPlan);
-    setCustomEvent('');
-    setSelectedDay(null);
+    resetForm();
   };
 
   // Remove event from day
@@ -121,7 +154,15 @@ function MealPlanner({ favoriteRecipes, onClose }) {
                     key={eventIndex}
                     className={`calendar-event ${event.type}`}
                   >
-                    <span>{event.title}</span>
+                    <div className="event-content">
+                      <span className="event-title">{event.title}</span>
+                      {event.time && (
+                        <span className="event-time">{formatTime(event.time)}</span>
+                      )}
+                      {event.location && (
+                        <span className="event-location">📍 {event.location}</span>
+                      )}
+                    </div>
                     <button
                       className="remove-event"
                       onClick={() => removeEvent(dateKey, eventIndex)}
@@ -136,7 +177,6 @@ function MealPlanner({ favoriteRecipes, onClose }) {
                 className="add-to-day"
                 onClick={() => {
                   setSelectedDay(date);
-                  setShowRecipePicker(false);
                 }}
               >
                 + Add
@@ -148,30 +188,56 @@ function MealPlanner({ favoriteRecipes, onClose }) {
 
       {/* Add event modal */}
       {selectedDay && (
-        <div className="modal-overlay" onClick={() => setSelectedDay(null)}>
+        <div className="modal-overlay" onClick={resetForm}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <h3>Add to {formatDateDisplay(selectedDay)}</h3>
 
             {/* Custom event input */}
             <div className="modal-section">
-              <label>Add Custom Event</label>
-              <div className="custom-event-input">
+              <label>Event Title *</label>
+              <input
+                type="text"
+                value={customEvent}
+                onChange={(e) => setCustomEvent(e.target.value)}
+                placeholder="e.g., Dinner with friends"
+                className="modal-input"
+              />
+            </div>
+
+            <div className="modal-row">
+              <div className="modal-section half">
+                <label>Time</label>
+                <input
+                  type="time"
+                  value={eventTime}
+                  onChange={(e) => setEventTime(e.target.value)}
+                  className="modal-input"
+                />
+              </div>
+
+              <div className="modal-section half">
+                <label>Location</label>
                 <input
                   type="text"
-                  value={customEvent}
-                  onChange={(e) => setCustomEvent(e.target.value)}
-                  placeholder="e.g., Dinner with friends"
-                  onKeyDown={(e) => e.key === 'Enter' && addCustomEvent()}
+                  value={eventLocation}
+                  onChange={(e) => setEventLocation(e.target.value)}
+                  placeholder="e.g., Home"
+                  className="modal-input"
                 />
-                <button className="btn-primary" onClick={addCustomEvent}>
-                  Add
-                </button>
               </div>
             </div>
 
+            <button
+              className="btn-primary full-width"
+              onClick={addCustomEvent}
+              disabled={!customEvent.trim()}
+            >
+              Add Event
+            </button>
+
             {/* Recipe picker */}
             <div className="modal-section">
-              <label>Or Add from Favorites</label>
+              <label>Or Add from Favorite Recipes</label>
               {favoriteRecipes.length === 0 ? (
                 <p className="no-favorites">No favorite recipes yet.</p>
               ) : (
@@ -191,7 +257,7 @@ function MealPlanner({ favoriteRecipes, onClose }) {
 
             <button
               className="btn-secondary modal-close"
-              onClick={() => setSelectedDay(null)}
+              onClick={resetForm}
             >
               Cancel
             </button>

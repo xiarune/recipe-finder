@@ -559,8 +559,30 @@
   border-left: 3px solid #4a90d9;
 }
 
-.calendar-event span {
+.event-content {
   flex: 1;
+  min-width: 0;
+}
+
+.event-title {
+  display: block;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-time {
+  display: block;
+  font-size: 0.7rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.event-location {
+  display: block;
+  font-size: 0.7rem;
+  color: #888;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -637,6 +659,41 @@
   color: #2d2a26;
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
+}
+
+.modal-section.half {
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.modal-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: #e07b4c;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 .custom-event-input {
