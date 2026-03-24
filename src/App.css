@@ -559,6 +559,11 @@
   border-left: 3px solid #4a90d9;
 }
 
+.calendar-event.meal {
+  background: #f0fff0;
+  border-left: 3px solid #5cb85c;
+}
+
 .event-content {
   flex: 1;
   min-width: 0;
@@ -583,6 +588,15 @@
   display: block;
   font-size: 0.7rem;
   color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.event-recipe {
+  display: block;
+  font-size: 0.7rem;
+  color: #5cb85c;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -684,6 +698,11 @@
 .modal-input:focus {
   outline: none;
   border-color: #e07b4c;
+}
+
+select.modal-input {
+  cursor: pointer;
+  background: white;
 }
 
 .full-width {
